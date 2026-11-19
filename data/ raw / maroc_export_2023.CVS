@@ -1,13 +1,10 @@
-produit,code_HS,valeur_export_MUSD,part_export_pct,croissance_2022_2023_pct,nb_pays_destination,valeur_par_tonne_USD
-Voitures et vehicules,8703,6500,14.2,12.5,45,18500
-Phosphates et derives,3105,5800,12.7,-8.2,38,420
-Textiles et vetements,6104,4200,9.2,3.1,28,18
-Composants electriques,8537,3900,8.5,9.8,32,95
-Produits agricoles - Tomates,0702,1800,3.9,15.2,22,1.8
-Produits agricoles - Agrumes,0805,1500,3.3,6.4,25,1.2
-Engrais phosphates,3105,3400,7.4,-12.0,40,380
-Poissons en conserve,1604,1200,2.6,4.5,30,4.2
-Chaussures et cuir,6403,900,2.0,2.8,18,22
-Aeronautique - pieces,8803,1100,2.4,18.7,12,850
-Produits pharmaceutiques,3004,800,1.7,7.9,20,45
-Huile d'olive,1519,600,1.3,22.0,15,3.5
+Problématique : les produits exportés par le Maroc se regroupent-ils en segments selon leur taille, leur croissance et leur volatilité ? Les seuils de réussite sont fixés avant les résultats : silhouette ≥ 0,25 et stabilité (ARI) ≥ 0,70.
+Données : UN Comtrade (S1), exportations du Maroc vers le Monde par produit SH et par année. Le fichier attendu est data/raw/comtrade_maroc_export.csv, avec les colonnes annee, produit_sh, libelle, valeur.
+Exploration : doublons, valeurs nulles et négatives, 3 figures en couleur avec zones d’interprétation (total des exportations, top produits, trajectoires normalisées).
+Préparation : pour chaque produit, 5 variables (taille, croissance, volatilité, tendance, gain de part de marché), puis winsorisation et standardisation.
+Algorithme : K-means (alternative : DBSCAN). La section D contient l’équation, tous les symboles, deux hyperparamètres commentés et le schéma à insérer.
+Évaluation :
+La référence naïve est un groupement par terciles de croissance.
+K varie de 2 à 8. Le critère est la silhouette et la stabilité (ARI sur 30 sous-échantillons à 80 %).
+Le K retenu est celui de meilleure silhouette parmi ceux dont la stabilité est au moins 0,70.
+Un tableau compare la référence, K-means et DBSCAN, avec une figure ACP des clusters et la table des profils.
